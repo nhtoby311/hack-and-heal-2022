@@ -1,12 +1,15 @@
 import { useContext, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import bg from '../assets/bg.jpg'
+import bg from '../assets/bg.png'
 import TextField from '../components/TextField'
 import { AuthContext } from '../context/AuthContext';
 import { useForm } from "react-hook-form";
+import { motion } from 'framer-motion';
 
-
+const animateProps = {
+    initial:0
+}
 
 export default function Login(){
     const { login, logout, auth ,authDoctor } = useContext(AuthContext);
@@ -59,18 +62,22 @@ export default function Login(){
     },[auth,authDoctor])
 
     return(
-        <Container>
+        <Container
+            initial={{opacity:0}}
+            animate={{opacity:1}}
+            exit={{opacity:0}}
+        >
             <Image src={bg}/>
             <LoginCont>
                 <h1>Login</h1>
                 <Form action='' onSubmit={handleSubmit(handleSubmitCallBack)}>
                     <LoginForm>
                         <TextField register={register} name="email" text='Email' type='text' required/>    
-                        <TextField register={register} name="password" text='Email' type='text' required/>
+                        <TextField register={register} name="password" text='Password' type='password' required/>
                         {/* https://stackoverflow.com/questions/66196193/using-react-hook-forms-ref-is-throwing-errors-in-the-console-if-i-use-a-custom */}
 
                         <Button type="submit">Log In</Button>
-                        <Anchor to="register">Create an account</Anchor>
+                        
                     </LoginForm>
                 </Form>
             </LoginCont>
@@ -78,7 +85,7 @@ export default function Login(){
     )
 }
 
-const Container = styled.div`
+const Container = styled(motion.div)`
     width:100vw;
     height:100vh;
     display: flex;
@@ -96,7 +103,7 @@ const Image = styled.img`
 const LoginCont = styled.div`
     height: 100%;
     width: 60%;
-    background: white;
+    background: #E8EFF8;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -117,11 +124,14 @@ const LoginForm = styled.div`
 `
 
 const Button = styled.button`
-    padding: 15px 20px;
+    padding: 18px 20px;
     border-radius: 14px;
     outline: none;
     border: none;
-    background: blue;
+    background: #3771E4;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
 `
 

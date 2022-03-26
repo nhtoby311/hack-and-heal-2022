@@ -1,22 +1,38 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import useIsMounted from "../hooks/useIsMounted";
 
-export const AuthContext = React.createContext({auth:false,login:() => Promise,user:"",logout:() => Promise,authDoctor:false});
+const userMock = {
+    "data":{
+        "id": 3,
+        "name": "Nguyen Hieu",
+        "email": "nhtoby311@gmail.com",
+        "type": "DOCTOR",
+        "phone_number": null,
+        "date_of_birth": null,
+        "patient_status": null,
+        "test_result": null
+    }
+    
+}
+
+export const AuthContext = React.createContext({auth:false,login:() => Promise,user:userMock,logout:() => Promise,authDoctor:false});
 
 export function AuthProvider({children})
 {
 
-    // eslint-disable-next-line
-    // const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')))
-    // const [auth,setAuth] = useState(JSON.parse(localStorage.getItem('user')) && JSON.parse(localStorage.getItem('user')).data === 'PATIENTS')
-    // const [authDoctor,setAuthDoctor] = useState(JSON.parse(localStorage.getItem('user')) && JSON.parse(localStorage.getItem('user')).role === 'DOCTOR')
-    // const isMounted = useIsMounted()    
-    // Actural use
 
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')))
-    const [auth,setAuth] = useState(true)
-    const [authDoctor,setAuthDoctor] = useState(true)
-    const isMounted = useIsMounted()    
+    const [auth,setAuth] = useState(JSON.parse(localStorage.getItem('user')) && JSON.parse(localStorage.getItem('user')).data.type === 'PATIENT')
+    const [authDoctor,setAuthDoctor] = useState(JSON.parse(localStorage.getItem('user')) && JSON.parse(localStorage.getItem('user')).data.type === 'DOCTOR')
+    const isMounted = useIsMounted()  
+    const navigate = useNavigate();
+    // Actural use
+
+    // const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')))
+    // const [auth,setAuth] = useState(true)
+    // const [authDoctor,setAuthDoctor] = useState(true)
+    // const isMounted = useIsMounted()    
     
     
 
@@ -82,16 +98,12 @@ export function AuthProvider({children})
             setAuthDoctor(true)
             setAuth(false)
         }
-        else if (JSON.parse(localStorage.getItem('user')).data.type === 'PATIENTS'){
+        else if (JSON.parse(localStorage.getItem('user')).data.type === 'PATIENT'){
             setAuth(true)
             setAuthDoctor(false)
         }
         //setAuth(true)
     }
-
-    
-
-    
 
 
     return(

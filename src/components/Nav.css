@@ -1,4 +1,26 @@
 .active {
+  color: #164ebd !important;
+  outline: none;
+  font-weight: 600;
+  position: relative;
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+  text-decoration: none;
+}
+
+.inactive {
+  position: relative;
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+  text-decoration: none;
+  color: #969696;
+  transition: color 0.3s;
+}
+
+.inactive:hover {
+  color: #164ebd;
 }
 
 .active:after {
@@ -9,7 +31,7 @@
   width: 5px;
   height: 100%;
   border-radius: 5px 0 0 5px;
-  background: blue;
+  background: #164ebd;
   z-index: 12;
   box-shadow: -11px 1px 22px 4px rgba(103, 101, 248, 0.38);
 }

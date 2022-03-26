@@ -1,14 +1,18 @@
 import React, { useContext, useEffect } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { AuthContext } from './context/AuthContext';
-import AuthRoute from './hooks/useAuthRoute';
 import Home from './pages/Home';
 import HomeDoctor from './pages/Doctor/Home'
 import Login from './pages/Login';
 import './styles/style.css'
+import Layout from './components/Layout';
+import Test from './pages/Doctor/Test';
+import { AnimatePresence } from 'framer-motion';
+import List from './pages/Doctor/List';
 
 function App() {
   const { auth,authDoctor } = useContext(AuthContext);
+  const location = useLocation()
 
   const getData = async() =>{
     try
@@ -51,16 +55,26 @@ function App() {
 
 
   return (
-    <Routes>
-      <Route path="/" element={<ProtectedRoute>
-              <Home />
-            </ProtectedRoute>}/>
-      <Route path="/login" element={<Login></Login>}/>
-      <Route path="/ss" element={<>Testing</>}/>
-      <Route path="/doctor" element={<ProtectedDoctorRoute>
-              <HomeDoctor />
-            </ProtectedDoctorRoute>}/>
-    </Routes>
+    <Layout>
+      <AnimatePresence exitBeforeEnter>
+        <Routes location={location} key={location.key}>
+          <Route path="/" element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>}/>
+          <Route path="login" element={<Login></Login>}/>
+          <Route path="/doctor" >
+            <Route index element={  
+              <ProtectedDoctorRoute>
+                <HomeDoctor />
+              </ProtectedDoctorRoute>}/>
+            <Route path="test" element={<Test />} />
+            <Route path="list" element={<List />} />
+          </Route>
+        </Routes>
+      </AnimatePresence>
+    </Layout>
+    
   );
 }
 

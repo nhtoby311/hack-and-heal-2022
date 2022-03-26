@@ -21,11 +21,12 @@ const Cont = styled.div`
         &:valid ~span{
             font-size: 12px;
             padding: 15px 0px;
+            color : #3232fc;
             transform: translateY(-35px);
         }
         &:valid{
             border-bottom: solid 2px blue;
-            color : blue;
+            color : #3232fc;
         }
 
         &:autofill {
@@ -57,7 +58,7 @@ const TextField = ({register,name,text,type,...rest},ref) =>{
 
     return(
         <Cont>
-            <input {...register(name)}/>
+            <input {...register(name)} type={type} required/>
             <span>{text}</span>
         </Cont>
     )
