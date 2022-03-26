@@ -1,0 +1,15 @@
+.active {
+}
+
+.active:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 5px;
+  height: 100%;
+  border-radius: 5px 0 0 5px;
+  background: blue;
+  z-index: 12;
+  box-shadow: -11px 1px 22px 4px rgba(103, 101, 248, 0.38);
+}
